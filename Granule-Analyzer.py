@@ -12,15 +12,11 @@ from tkinter import filedialog
 
 # file dialog window base as the very first GUI after starting the program
 file_root = tk.Tk()
-file_root.title("Granule Analyzer")
-file_root.geometry("525x530")
+file_root.title("Starch-Granule-Analyzer")
+file_root.geometry("370x140")
 file_root.resizable(False, False)
-img_front = ImageTk.PhotoImage(Image.open("front_pic.jpeg"))
-label_name = tk.Label(file_root, text= '"Granule Analyzer" developed by Markus Pieth')
-label_name.grid(row= 0, column= 0, columnspan= 3)
-label_front = tk.Label(file_root, image= img_front)
-label_front.grid(row= 1, column= 0, columnspan= 3)
-
+label_front = tk.Label(file_root, text= '\n"Starch-Granule-Analyzer"\ndeveloped by Markus Pieth\n\n')
+label_front.grid(row= 0, column= 0, columnspan= 3)
 # function for second window after having chosen an image file for processing
 def open_file():
 # set up global image variables
@@ -38,7 +34,6 @@ def open_file():
 # rearranging GUI window with image and file-path
     label_front.destroy()
     label_open.destroy()
-    label_name.destroy()
     label_path = tk.Label(file_root, text= f"Selected file: {file_path.split('/')[-1]}")
     label_path.grid(row= 0, column= 0, columnspan= 4)  
     global label_img_open  
@@ -436,9 +431,9 @@ def refine_img(image, minimum, maximum, num_bins, conversion, max_lw_ratio):
 def open_manual_1():
     window_manual = tk.Toplevel()
     window_manual.title("Table of reference values to put in before processing")
-    label_header = tk.Label(window_manual, text= """Depending on the magnification used at the microscope to generate the image, a reference bar of chosen length can be integrated.
-                Here are reference bars' comparison length and its actual length in pixel, valid for 2048x1536 px images created by 'smart SEM software' by ZEISS .
-    These values must be entried to allow the conversional calculation during the image processing.\n""")
+    label_header = tk.Label(window_manual, text= '''Depending on the magnification used at the microscope to generate the image, a reference bar of chosen length can be integrated.
+                Here are reference bar comparison length and its actual length in pixel, valid for 2048x1536 px images created by "smart SEM software" by ZEISS .
+    These values must be entried to allow the conversional calculation during the image processing.\n''')
     label_header.grid(row= 0, column= 0, columnspan= 3)
     label_row11 = tk.Label(window_manual, text= "Magnification")
     label_row11.grid(row= 1, column= 0)
@@ -560,6 +555,12 @@ def open_manual_1():
     label_row202.grid(row= 20, column= 1)
     label_row203 = tk.Label(window_manual, text="138")
     label_row203.grid(row= 20, column= 2)
+    label_row211 = tk.Label(window_manual, text= "5000")
+    label_row211.grid(row= 21, column= 0)
+    label_row212 = tk.Label(window_manual, text="2")
+    label_row212.grid(row= 21, column= 1)
+    label_row213 = tk.Label(window_manual, text="72")
+    label_row213.grid(row= 21, column= 2)
 
 # function for opening window with explanations to refinement parameters
 def open_manual_2():
@@ -666,7 +667,7 @@ def create_excel(diameters, lengths, widths, bins, interval_minimum, interval_ma
     bold = wb.add_format({"bold": True})
     italic = wb.add_format({"italic":True})
     filename = filename.split('/')[-1]
-    owner_phrase = 'Analysis results created with "Granule Analyzer" developed by Markus Pieth'
+    owner_phrase = 'Analysis results created with "Starch-Granule-Analyzer" developed by Markus Pieth'
 # writing diameter data created into respective excel sheet
     ws_diameter.merge_range("A1:H1", filename, italic)
     ws_diameter.merge_range("I1:P1", owner_phrase, bold)
@@ -867,8 +868,8 @@ def reset_global_images(left, top, right, bottom, file_path):
 
 # buttons of the file dialog window for triggering functions defined above
 button_open = tk.Button(file_root, text= "Open file", command= open_file)
-button_open.grid(row= 2, column= 0, pady= 20)
+button_open.grid(row= 1, column= 0, padx= 10, pady= 20)
 label_open = tk.Label(file_root, text= "Open an image file to get to the next window where\n the image processing parameters will be set.")
-label_open.grid(row= 2, column= 1)
+label_open.grid(row= 1, column= 1)
 
 file_root.mainloop()
